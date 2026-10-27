@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  imports: [],
+  imports: [FormsModule],
   selector: 'app-sip-calculator',
   styleUrl: './sip-calculator.css',
   templateUrl: './sip-calculator.html',
@@ -9,13 +10,16 @@ import { Component } from '@angular/core';
 export class SipCalculator {
   title: string = 'SIP Returns Calculator';
 
+  constructor() {
+    this.calculateReturns();
+  }
   //Input parameters
   monthlyAmount: number = 5000;
   investmentPeriod: number = 10; //in years
   expectedReturnRate: number = 12; //percentage
 
   //For safe navigation demo
-  fundName: string | null = null;
+  //fundName: string | null = null;
 
   //Calculated results
   totalInvestment: number = this.monthlyAmount * 12 * this.investmentPeriod;
@@ -42,8 +46,8 @@ export class SipCalculator {
   }
 
   //For property binding examples
-  logoUrl: string = 'assets/logo.png';
-  buttonTooltip: string = 'Click to calculate your SIP returns';
+  //logoUrl: string = 'assets/logo.png';
+  buttonTooltip: string = 'Click to re-calculate with current values';
 
   //Simple calculation method
   calculateYearlyInvestment(): number {
@@ -51,39 +55,15 @@ export class SipCalculator {
   }
 
   //Method to adjust monthly amount
-  adjustAmount(amount: number): void {
-    this.monthlyAmount = Math.max(0, this.monthlyAmount + amount);
-  }
+  // adjustAmount(amount: number): void {
+  //  this.monthlyAmount = Math.max(0, this.monthlyAmount + amount);
+  //}
 
   //Method to show event details
-  showEventDetails(event: MouseEvent): void {
-    console.log('Clicked at coordinates: ', event.clientX, event.clientY);
-  }
+  //showEventDetails(event: MouseEvent): void {
+  // console.log('Clicked at coordinates: ', event.clientX, event.clientY);
+  //}
   //Input event handlers
-  updateMonthlyAmount(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const value: number = +target.value;
-
-    if (isNaN(value)) this.monthlyAmount = 0;
-    else this.monthlyAmount = value;
-  }
-
-  updatePeriod(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const value: number = +target.value;
-
-    if (isNaN(value) || value < 1) this.investmentPeriod = 1;
-    else this.investmentPeriod = value;
-  }
-
-  updateReturnRate(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const value: number = +target.value;
-
-    if (isNaN(value)) this.expectedReturnRate = 0;
-    else this.expectedReturnRate = value;
-  }
-
   onPeriodComplete(event: Event): void {
     console.log('Change event fired');
   }
